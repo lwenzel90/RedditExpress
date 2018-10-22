@@ -22,6 +22,8 @@ app.get("/friends", function(req, res){
     res.render("friends", {friends: friends});//name in other file... name in this file 
 });
 
+//test
+
 app.post("/addfriend", function(req, res){
     var newFriend = req.body.newFriend;//works because of body parser
     friends.push(newFriend);
