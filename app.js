@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const logger = require('./logger.js');
+
 // lets us look at reqest's body 
 var bodyParser = require("body-parser");
 
@@ -8,7 +9,8 @@ app.use(bodyParser.urlencoded({extended: true}));//not sure what this does
 
 app.use(express.static("public/css"));
 app.use(express.static("public/js"));
-app.use(express.static("public/partials"))
+app.use(express.static("public/partials"));
+app.use(express.static("public/img"));
 
 app.set("view engine", "ejs");
 

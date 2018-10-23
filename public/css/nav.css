@@ -1,0 +1,42 @@
+.nav-link{
+    display: inline;
+}
+
+.affix{
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+}
+
+.second-nav{
+    transform: translateY(100%);
+    display: block;
+}
+
+.content{
+    transform:translateY(60px);
+}
+
+.row{
+    width: 100%;
+}
+
+.nav-icon-box{
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #dee2e6!important;
+    
+    margin-left: .5rem;
+}
+
+.nav-icon{
+    width: 50%;
+    transform: translateX(50%);
+    
+    margin: auto;
+}
+
+.nav-group-end{
+    margin-right: .5em;
+    border-right: 1px solid #dee2e6;
+}
