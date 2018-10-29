@@ -22,7 +22,7 @@
 }
 
 .nav-icon-box{
-    width: 2rem;
+    min-width: 2rem;
     height: 2rem;
     border: 1px solid #dee2e6!important;
     
@@ -39,4 +39,14 @@
 .nav-group-end{
     margin-right: .5em;
     border-right: 1px solid #dee2e6;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.dropdown-icon{
+    width: 13%;
 }

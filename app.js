@@ -14,6 +14,8 @@ app.use(express.static("public/img"));
 
 app.set("view engine", "ejs");
 
+var friends = ["Brian", "Dan", "Kam", "Bailey", "Matt", "Mike"];
+
 var subreddits = ["Funny", "Art", "Music", "Programming", "News"];
 
 app.get("/", function(req, res){
@@ -26,7 +28,7 @@ app.get("/friends", function(req, res){
 
 //test
 
-app.post("/addfriend", function(req, res){
+app.post("/friends", function(req, res){
     var newFriend = req.body.newFriend;//works because of body parser
     friends.push(newFriend);
     res.redirect("/friends");
@@ -44,7 +46,7 @@ app.get("/posts", function(req, res){
     var posts = [
         {title: "First post on reddit", author: "Mike"},
         {title: "Look at this meme", author: "Tyler"},
-        {title: "Classic Shit Post!", author: "Rogger"}
+        {title: "Classic Post!", author: "Rogger"}
         ];
     res.render("posts", {posts: posts});
 });
