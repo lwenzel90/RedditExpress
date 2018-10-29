@@ -1,20 +1,74 @@
 <% include partials/header %>
+<nav>
+    <div class="navbar navbar-expand bg-light border-bottom affix fixed-top " style="padding: .1rem 1rem;">
+
+            <span class="navbar-brand col-1 mb-0 h1">ForumIt</span>
+            
+            <div class="dropdown show col-2 ">
+                <button class="btn dropdown-toggle col-12" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Home
+                </button>
+                <div class="dropdown-menu">
+                    <p class="bg-light m-0 p-2">Feed Type</p>
+                    <a href="#" class="dropdown-item">Home</a>
+                    <a href="#" class="dropdown-item">Popular</a>
+                    <a href="#" class="dropdown-item">All</a>
+                    
+                    <div class="dropdown-divider"></div>
+                    <p class="bg-light m-0 p-2">Your Subreddits</p>
+                    <% subreddits.forEach(function(subreddit){ %>
+                        <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit %></a>
+                    <% }); %>
+                </div>
+            </div>
+        
+            <input class="form-control col-lg-5  col-md-3 col-sm-12 float-md-left" type="text" placeholder="Search" aria-label="Search">
+            <span class="nav-icon-box"><img src="graph.svg" alt="" class="nav-icon m"></span>
+            <span class="nav-icon-box"><img src="bar-chart.svg" alt="" class="nav-icon"></span>
+            <span class="nav-icon-box"><img src="check.svg" alt="" class="nav-icon "></span>
+            <span class="nav-group-end"></span>
+            
+            <button type="button" class="btn btn-success">Compose</button>
+        </div>
+        
+        
+        
+        
+        <div class="navbar bg-light border-bottom second-nav" style="padding: .1rem 1rem;">
+            <div class="container">
+                <a class="nav-link d-inline-block" href="#">home</a>
+                <a class="nav-link d-inline-block float-left" href="#">Popular</a>
+            </div>
+                
+        </div>
+</nav>
+
+
+
 <div class="container">
     <div class="content">
         <h1>ForumIt Home</h1>
-        <div class="col-7 d-inline-block border">
-            <ul>
-                <li>hot</li>
-                <li>new</li>
-                <li>top</li>
-            </ul>    
-        </div>
-        
         <div id="signIn" class="container col-4 d-inline-block border mr-4  float-right">
             <input type="text" placeholder="username">
             <input type="text" placeholder="password">
             <button>log in</button>
         </div>
+
+        <div class="col-7 d-inline-block border mb-4">
+            <h5>Post title - this can be as long as it wants to be</h5>  
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                 Reiciendis quis, repellendus mollitia quas quam sunt
+                  porro nesciunt similique quod eveniet ad error 
+                  recusandae aspernatur quos autem dolores ipsa? Ullam, minima.</p>
+        </div>
+        <div class="col-7 d-inline-block border mb-4">
+                <h5>Post title - this can be as long as it wants to be</h5>  
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Reiciendis quis, repellendus mollitia quas quam sunt
+                      porro nesciunt similique quod eveniet ad error 
+                      recusandae aspernatur quos autem dolores ipsa? Ullam, minima.</p>
+            </div>
+
         <br>
         <br>
         <br>

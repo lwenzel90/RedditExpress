@@ -14,10 +14,10 @@ app.use(express.static("public/img"));
 
 app.set("view engine", "ejs");
 
-var friends = ["Dylan", "Bailey", "Mike", "Matt", "Shawn"];
+var subreddits = ["Funny", "Art", "Music", "Programming", "News"];
 
 app.get("/", function(req, res){
-    res.render("home");
+    res.render("home", {subreddits: subreddits});
 });
 
 app.get("/friends", function(req, res){
@@ -36,7 +36,7 @@ app.get("/love", function(req, res){
     //req has all the information about the request made
     //res all of the info related to response 
     var name = ["Logan", "Brian", "Dan", "Kamrin", "Tom", "Bailey", "ManBearPig"];
-    res.render("love", {lover: name[Math.floor(Math.random() * name.length)] });
+    res.render("love", {lover: name[Math.floor(Math.random() * name.length)] });    
     //res.send("<h1>Welcome to the home page!</h1><h2>blah blah blah</h2>"); 
 });
 
@@ -51,13 +51,14 @@ app.get("/posts", function(req, res){
 
 app.get("/:pageName", function(req, res){ 
     var pageName = req.params.pageName;
-    res.render("newPage", {pageVar: pageName});
+    res.render("page404", {pageVar: pageName});
+    console.log("Loading 404");
 });
 
 //show subreddits
 app.get("/r/:subreddit", function(req, res){
     var subreddit = req.params.subreddit;
-    res.send("You are trying to connect to '" + subreddit + "' the subreddit");
+    res.send("You are trying to connect to the '" + subreddit + "' the subreddit");
 });
 
 app.listen(3000, function(){
