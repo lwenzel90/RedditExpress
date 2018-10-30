@@ -5,7 +5,7 @@ const logger = require('./logger.js');
 // lets us look at reqest's body 
 var bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({extended: true}));//not sure what this does 
+app.use(bodyParser.urlencoded({extended: true}));//body parser seperates out the url info
 
 app.use(express.static("public/css"));
 app.use(express.static("public/js"));
@@ -18,8 +18,35 @@ var friends = ["Brian", "Dan", "Kam", "Bailey", "Matt", "Mike"];
 
 var subreddits = ["Funny", "Art", "Music", "Programming", "News"];
 
+var user = {
+    email: "",
+    userName: "",
+    password: "",
+    birthDate: new Date()
+
+};
+
 app.get("/", function(req, res){
     res.render("home", {subreddits: subreddits});
+});
+
+app.get("/subreddit", function(req, res){
+    res.render("subreddit", {subreddits: subreddits});
+});
+
+app.post("/subreddit", function(req, res){
+    var name = req.body.name;
+    // var fullName = req.body.fullName;
+    // var description = req.body.description;
+    // var rules = req.body.rules;
+    // var shortRules = req.body.shortRules;
+    subreddits.push(name);
+    res.redirect("/subreddit");
+});
+
+app.get("/subreddit/new", function(req, res){
+    res.render("newSubreddit.ejs");
+    
 });
 
 app.get("/friends", function(req, res){
@@ -31,7 +58,7 @@ app.get("/friends", function(req, res){
 app.post("/friends", function(req, res){
     var newFriend = req.body.newFriend;//works because of body parser
     friends.push(newFriend);
-    res.redirect("/friends");
+    res.redirect("friends");
 });
 
 app.get("/love", function(req, res){
@@ -39,7 +66,6 @@ app.get("/love", function(req, res){
     //res all of the info related to response 
     var name = ["Logan", "Brian", "Dan", "Kamrin", "Tom", "Bailey", "ManBearPig"];
     res.render("love", {lover: name[Math.floor(Math.random() * name.length)] });    
-    //res.send("<h1>Welcome to the home page!</h1><h2>blah blah blah</h2>"); 
 });
 
 app.get("/posts", function(req, res){
