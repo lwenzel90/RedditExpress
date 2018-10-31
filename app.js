@@ -1,6 +1,41 @@
+// This file is where the reddit clone is 
+// called from. Most of what is happening here 
+// is to do with http routing of the app. 
+// Routes point to templated pages using ejs
+// A db is setup using mongo and mongoose below
 const express = require("express");
 const app = express();
 const logger = require('./logger.js');
+var mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/reddit_clone", { useNewUrlParser: true });
+
+var userSchema = new mongoose.Schema({
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    email: String,
+    isAdmin: Boolean,
+    age: Date, 
+
+});
+
+var User = mongoose.model("User", userSchema);
+
+var me = new User({
+    username: "JohnDoe", 
+    password: "password123", 
+    email: "example@gmail.com",
+    isAdmin: true,
+    age: new Date('October 07, 1997 00:00:00')
+});
+
+me.save(function(err, user){
+    if(err){
+        console.log("something went wrong when inserting to the db");
+    } else{
+        console.log("Item saved to db");
+        console.log(user);
+    }
+});
 
 // lets us look at reqest's body 
 var bodyParser = require("body-parser");
@@ -17,14 +52,6 @@ app.set("view engine", "ejs");
 var friends = ["Brian", "Dan", "Kam", "Bailey", "Matt", "Mike"];
 
 var subreddits = ["Funny", "Art", "Music", "Programming", "News"];
-
-var user = {
-    email: "",
-    userName: "",
-    password: "",
-    birthDate: new Date()
-
-};
 
 app.get("/", function(req, res){
     res.render("home", {subreddits: subreddits});
