@@ -1,0 +1,7 @@
+<% include partials/header %>
+
+<% users.forEach(function(users){ %>
+    <a href="/r/<%= users %>" class="dropdown-item"> <%= users %></a>
+<% }); %>
+
+<% include partials/footer %>

@@ -4,6 +4,6 @@
 
 <div class="post">
     <% subreddits.forEach(function(subreddit){ %>
-        <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit %></a>
+        <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit.name %></a>
     <% }); %>
 </div>
