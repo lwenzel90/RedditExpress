@@ -10,7 +10,7 @@
 
 .second-nav{
     transform: translateY(100%);
-    display: block;
+    display: block !important;
 }
 
 .content{
@@ -50,3 +50,15 @@
 .dropdown-icon{
     width: 13%;
 }
+
+@media (max-width: 768px) {
+    .mt-md-6 {
+      margin-top: 6rem !important;
+    }
+  }
+
+  @media (max-width: 326px) {
+    .mt-md-6 {
+      margin-top: 3rem !important;
+    }
+  }

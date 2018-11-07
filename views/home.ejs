@@ -1,12 +1,12 @@
 <% include partials/header %>
-<nav class="d-block">
-    <div class="navbar navbar-expand bg-light border-bottom affix fixed-top " style="padding: .1rem 1rem;">
+
+    <div class="navbar navbar-expand-md bg-light border-bottom affix fixed-top " style="padding: .1rem 1rem;">
         
-        <span class="navbar-brand h1 d-none d-md-inline">ForumIt</span>
+        <span class="navbar-brand h1  d-md-block">ForumIt</span>
 
         
-        <div class="dropdown show col-sm-3 col-md-2">
-            <button class="btn dropdown-toggle col-12" type="button" data-toggle="dropdown" data-boundary="200px" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown show col-sm-12 col-md-2 ">
+            <button class="btn dropdown-toggle col-12 mb-2 mb-md-0" type="button" data-toggle="dropdown" data-boundary="200px" aria-haspopup="true" aria-expanded="false">
                 Home
             </button>
             <div class="dropdown-menu scrollable-menu">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <input class="form-control flex" type="text" placeholder="Search" aria-label="Search">
+        <input class="form-control flex mb-sm-2 mb-2 mb-md-0" type="text" placeholder="Search" aria-label="Search">
         <a href="/">
             <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Home">
                 <img src="check.svg" class="nav-icon ">
@@ -43,13 +43,13 @@
         
 
         
-        <button type="button" class="btn btn-primary ml-1">Compose</button>
+        <button type="button" class="btn btn-primary ml-1 col-xs-3 col-md-2 mb-2 mb-md-0">Compose</button>
     </div>
         
         
         
     <!-- second nav bar     -->
-    <div class="navbar bg-light border-bottom second-nav" style="padding: .1rem 1rem;">
+    <!-- <div class="navbar bg-light border-bottom second-nav" style="padding: .1rem 1rem;">
         <div class="container">
             
             <a class="nav-link " href="#">Home</a>
@@ -57,8 +57,8 @@
             <a class="nav-link" href="">Explore</a>
         </div>
             
-    </div>
-</nav>
+    </div> -->
+
 <!-- end of navigation -->
 
 <div class="bg-light">
@@ -66,7 +66,7 @@
         <div class="content d-block row ">
             <h1>ForumIt Home</h1>
             <div class="col-12 col-md-4 float-md-right">
-                <div id="signIn" class="container border mb-4  bg-white p-2">
+                <div id="signIn" class="container border mb-4 mt-md-6 bg-white p-2">
                     <input type="text" placeholder="username" class="col-12 mb-1">
                     <input type="password" placeholder="password" class="col-12 mb-2">
                     <button class="btn btn-success btn-sm col-6 col-md-4">log in</button>
