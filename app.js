@@ -23,16 +23,33 @@ var userSchema = new mongoose.Schema({
     age: Date, 
 });
 
+// creates a object with methods to manipulate the db
+var User = mongoose.model("User", userSchema);
+
+User.create({
+    username: "JohnsADoeFoSho", 
+    password: "password123", 
+    email: "example@gmail.com",
+    isAdmin: true,
+    age: new Date('January 01, 2000 00:00:00')
+}, function(err, user){
+    if(err){
+        console.log(err);
+    } else{
+        console.log("user created and stored in db")
+    }
+});
+
 var subredditSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true }, 
     description: {type: String, required: false, unique: false},
     rules: {type: String, required: false, unique: false}, 
-
+    
 });
 
-var subreddit = mongoose.model("subreddit", subredditSchema);
+var Subreddit = mongoose.model("subreddit", subredditSchema);
 
-subreddit.create({
+Subreddit.create({
     name: "funny", 
     description: "We like jokes!",
     rules: "Make all jokes in good taste"
@@ -44,25 +61,6 @@ subreddit.create({
     }
 });
 
-
-
-// // creates a object with methods to manipulate the db
-// var User = mongoose.model("User", userSchema);
-
-// User.create({
-//     username: "JohnsADoeFoSho", 
-//     password: "password123", 
-//     email: "example@gmail.com",
-//     isAdmin: true,
-//     age: new Date('October 07, 1997 00:00:00')
-// }, function(err, user){
-//     if(err){
-//         console.log(err);
-//     } else{
-//         console.log(user)
-//     }
-// });
-
 // User.find({}, function(err, user){
 //     if(err){
 //         console.log(err);
@@ -70,23 +68,6 @@ subreddit.create({
 //         console.log("----------------------------");
 //         console.log("-------All DB entries-------");
 //         console.log("----------------------------");
-//         console.log(user);
-//     }
-// });
-
-// var newUser = new User({
-//     username: "JohnDoe", 
-//     password: "password123", 
-//     email: "example@gmail.com",
-//     isAdmin: true,
-//     age: new Date('October 07, 1997 00:00:00')
-// });
-
-// newUser.save(function(err, user){
-//     if(err){
-//         console.log("something went wrong when inserting to the db");
-//     } else{
-//         console.log("Item saved to db");
 //         console.log(user);
 //     }
 // });
