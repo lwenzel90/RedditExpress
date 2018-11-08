@@ -1,9 +1,13 @@
 <% include partials/header %>
+<div class="container">
+    <h1>All subreddits</h1>
 
-<h1>All subreddits</h1>
-
-<div class="post">
-    <% subreddits.forEach(function(subreddit){ %>
-        <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit.name %></a>
-    <% }); %>
+    <div class="post">
+        <% subreddits.forEach(function(subreddit){ %>
+            <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit.name %></a>
+        <% }); %>
+    </div>
 </div>
+
+<% include partials/footer %>
+

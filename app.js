@@ -12,7 +12,10 @@ var express    = require("express"),
     
 mongoose.connect("mongodb://localhost:27017/reddit_clone", { useNewUrlParser: true });
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({extended: true}));//body parser seperates out the url info
+
+//body parser seperates out the url info from post requests
+//middleware to use later in app
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Schema Creation
 var userSchema = new mongoose.Schema({
@@ -34,30 +37,33 @@ User.create({
     age: new Date('January 01, 2000 00:00:00')
 }, function(err, user){
     if(err){
-        console.log(err);
+        console.log("User entry error");
+        console.log(err.message);
     } else{
-        console.log("user created and stored in db")
+        console.log("Below User Added to DB");
+        console.log(user);
     }
 });
 
 var subredditSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true }, 
     description: {type: String, required: false, unique: false},
-    rules: {type: String, required: false, unique: false}, 
+    rules: {type: String, required: false, unique: false}
     
 });
 
 var Subreddit = mongoose.model("subreddit", subredditSchema);
 
+
 Subreddit.create({
-    name: "funny", 
+    name: "gaming", 
     description: "We like jokes!",
     rules: "Make all jokes in good taste"
 }, function(err, subreddit){
     if(err){
         console.log("error at subreddit creation");
     } else{
-        console.log("funny subreddit created");
+        console.log("newly added subreddit is " + subreddit.name);
     }
 });
 
@@ -72,83 +78,63 @@ Subreddit.create({
 //     }
 // });
 
-// lets us look at reqest's body 
-
+// allow use of nondynamic resources by the app  
 app.use(express.static("public/css"));
 app.use(express.static("public/js"));
 app.use(express.static("public/partials"));
 app.use(express.static("public/img"));
 
 
-// var friends = ["Brian", "Dan", "Kam", "Bailey", "Matt", "Mike"];
-
-var subreddits = ["Funny", "Art", "Music", "Programming", "News"];
+var subreddits = ["Funny"];
 
 app.get("/", function(req, res){
     res.render("home", {subreddits: subreddits});
 });
 
-// app.get("/users", function(req, res){
-//     User.find({}, function(err, allUsers){
-//         if(err){
-//             //console.log(err);
-//         } else{
-//             res.render("users", {users:allUsers});
-//         }
-//     })
-// });
-
 app.get("/subreddit", function(req, res){
-    subreddit.find({}, function(err, subreddits){
+    Subreddit.find({}, function(err, subreddits){
         if(err){
-            //console.log(err);
+            console.log("Subreddit query error");
+            console.log(err);
+            res.render("home", {subreddits: subreddits});
         } else{
             res.render("subreddit", {subreddits: subreddits});
         }
     });
-    
 });
+
+app.get("/subreddit/new", function(req, res){
+    res.render("newSubreddit");
+})
 
 app.post("/subreddit", function(req, res){
     var name = req.body.name;
-    // var fullName = req.body.fullName;
     var description = req.body.description;
     var rules = req.body.rules;
-    var newSubreddit = {name: name, rules: rules, description: description};
-    // var shortRules = req.body.shortRules;
+    var newSubreddit = {name: name, description: description, rules: rules};
 
-    subreddit.create(newSubreddit, function(err, newEntry){
+    Subreddit.create(newSubreddit, function(err, newEntry){
         if(err){
+            console.log("subreddit creation error");
             console.log(err);
         } else{
+            console.log("Below subreddit has been added to DB");
+            console.log(newEntry.name);
             res.redirect("/subreddit");
         }
     });
     
 });
 
-app.get("/subreddit/new", function(req, res){
-    res.render("newSubreddit.ejs");
-    
-});
-
-app.get("/friends", function(req, res){
-    res.render("friends", {friends: friends});//name in other file... name in this file 
-});
-
-//test
-
-// app.post("/friends", function(req, res){
-//     var newFriend = req.body.newFriend;//works because of body parser
-//     friends.push(newFriend);
-//     res.redirect("friends");
-// });
-
-app.get("/love", function(req, res){
-    //req has all the information about the request made
-    //res all of the info related to response 
-    var name = ["Logan", "Brian", "Dan", "Kamrin", "Tom", "Bailey", "ManBearPig"];
-    res.render("love", {lover: name[Math.floor(Math.random() * name.length)] });    
+app.get("/users", function(req, res){
+    User.find({}, function(err, allUsers){
+        if(err){
+            console.log("Users query error");
+            console.log(err.message);
+        } else{
+            res.render("users", {users:allUsers});
+        }
+    })
 });
 
 app.get("/posts", function(req, res){
@@ -176,4 +162,5 @@ app.listen(3000, function(){
     console.log("Listening on port 3000");
 });
 
-logger.log("hi");
+//custom written middleware
+//logger.log("hi");

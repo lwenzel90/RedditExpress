@@ -10,13 +10,13 @@
                 Home
             </button>
             <div class="dropdown-menu scrollable-menu">
-                <p class="bg-light m-0 p-2">Feed Type</p>
+                <p class="bg-light m-0 p-2 border-bottom border-top">Feed Type</p>
                 <a href="/r/home" class="dropdown-item"><img src="check.svg" alt="" class="dropdown-icon mr-1">Home</a>
                 <a href="/r/popular" class="dropdown-item"><img src="graph.svg" alt="" class="dropdown-icon mr-1">Popular</a>
                 <a href="/r/all" class="dropdown-item"><img src="bar-chart.svg" alt="" class="dropdown-icon">All</a>
                 
-                <div class="dropdown-divider"></div>
-                <p class="bg-light m-0 p-2">Your Subreddits</p>
+                
+                <p class="bg-light m-0 p-2 border-bottom border-top">Your Subreddits</p>
                 <% subreddits.forEach(function(subreddit){ %>
                     <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit %></a>
                 <% }); %>
@@ -30,12 +30,12 @@
             </span>
         </a>
         <a href="/r/popular">
-            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Home">
+            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Popular">
                 <img src="graph.svg" class="nav-icon">
             </span>
         </a>
         <a href="/r/all">
-            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Home">
+            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="All">
                 <img src="bar-chart.svg" class="nav-icon">
             </span>
         </a>
@@ -43,7 +43,7 @@
         
 
         
-        <button type="button" class="btn btn-primary ml-1 col-xs-3 col-md-2 mb-2 mb-md-0">Compose</button>
+        <button type="button" class="btn btn-primary ml-1 col-xs-3 col-md-2 mb-2 mb-md-0" title="compose">Compose</button>
     </div>
         
         
