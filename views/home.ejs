@@ -18,7 +18,7 @@
                 
                 <p class="bg-light m-0 p-2 border-bottom border-top">Your Subreddits</p>
                 <% subreddits.forEach(function(subreddit){ %>
-                    <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit %></a>
+                    <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit.name %></a>
                 <% }); %>
             </div>
         </div>

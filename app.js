@@ -88,7 +88,15 @@ app.use(express.static("public/img"));
 var subreddits = ["Funny"];
 
 app.get("/", function(req, res){
-    res.render("home", {subreddits: subreddits});
+    Subreddit.find({}, function(err, subreddits){
+        if(err){
+            console.log("Home page Subreddit query error");
+            console.log(err);
+            res.render("Page404", {subreddits: subreddits});
+        } else{
+            res.render("home", {subreddits: subreddits});
+        }
+    });
 });
 
 app.get("/subreddit", function(req, res){
