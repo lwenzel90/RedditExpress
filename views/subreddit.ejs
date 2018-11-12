@@ -4,10 +4,10 @@
 
     <div class="post">
         <% subreddits.forEach(function(subreddit){ %>
-            <a href="/subreddit/<%= subreddit._id %>"" class="dropdown-item"> <%= subreddit.name %></a>
+        <a href="/subreddit/<%= subreddit._id %>"" class=" dropdown-item">
+            <%= subreddit.name %></a>
         <% }); %>
     </div>
 </div>
 
 <% include partials/footer %>
-
