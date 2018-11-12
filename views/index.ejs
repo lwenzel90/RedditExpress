@@ -11,14 +11,14 @@
             </button>
             <div class="dropdown-menu scrollable-menu">
                 <p class="bg-light m-0 p-2 border-bottom border-top">Feed Type</p>
-                <a href="/r/home" class="dropdown-item"><img src="check.svg" alt="" class="dropdown-icon mr-1">Home</a>
-                <a href="/r/popular" class="dropdown-item"><img src="graph.svg" alt="" class="dropdown-icon mr-1">Popular</a>
-                <a href="/r/all" class="dropdown-item"><img src="bar-chart.svg" alt="" class="dropdown-icon">All</a>
+                <a href="/" class="dropdown-item"><img src="check.svg" alt="" class="dropdown-icon mr-1">Home</a>
+                <a href="/subreddit/popular" class="dropdown-item"><img src="graph.svg" alt="" class="dropdown-icon mr-1">Popular</a>
+                <a href="/subreddit/all" class="dropdown-item"><img src="bar-chart.svg" alt="" class="dropdown-icon">All</a>
                 
                 
                 <p class="bg-light m-0 p-2 border-bottom border-top">Your Subreddits</p>
                 <% subreddits.forEach(function(subreddit){ %>
-                    <a href="/r/<%= subreddit %>" class="dropdown-item"> <%= subreddit.name %></a>
+                    <a href="/subreddit/<%= subreddit._id %>" class="dropdown-item"> <%= subreddit.name %></a>
                 <% }); %>
             </div>
         </div>
@@ -29,12 +29,12 @@
                 <img src="check.svg" class="nav-icon ">
             </span>
         </a>
-        <a href="/r/popular">
+        <a href="/subreddit/popular">
             <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Popular">
                 <img src="graph.svg" class="nav-icon">
             </span>
         </a>
-        <a href="/r/all">
+        <a href="/subreddit/all">
             <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="All">
                 <img src="bar-chart.svg" class="nav-icon">
             </span>
@@ -76,6 +76,13 @@
                 <div id="devCard" class="container border mb-4  bg-white p-2 sticky-top ">
                     <h4>Learn About the Developer</h4>
                     <button class="btn btn-primary"><a href="http://www.loganwenzel.com" target="_blank" class="text-white">Learn Here!</a></button>
+                </div>
+
+                <div id="devCard" class="container border mb-4  bg-white p-2 sticky-top ">
+                    <h4>Quick Links</h4>
+                    <button class="btn btn-primary"><a href="/subreddit" target="_blank" class="text-white">Subreddits</a></button>
+                    <button class="btn btn-primary"><a href="/users" target="_blank" class="text-white">Users</a></button>
+                    
                 </div>
             </div>
             

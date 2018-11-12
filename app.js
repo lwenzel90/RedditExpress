@@ -29,21 +29,21 @@ var userSchema = new mongoose.Schema({
 // creates a object with methods to manipulate the db
 var User = mongoose.model("User", userSchema);
 
-User.create({
-    username: "JohnsADoeFoSho", 
-    password: "password123", 
-    email: "example@gmail.com",
-    isAdmin: true,
-    age: new Date('January 01, 2000 00:00:00')
-}, function(err, user){
-    if(err){
-        console.log("User entry error");
-        console.log(err.message);
-    } else{
-        console.log("Below User Added to DB");
-        console.log(user);
-    }
-});
+// User.create({
+//     username: "JohnsADoeFoSho", 
+//     password: "password123", 
+//     email: "example@gmail.com",
+//     isAdmin: true,
+//     age: new Date('January 01, 2000 00:00:00')
+// }, function(err, user){
+//     if(err){
+//         console.log("User entry error");
+//         console.log(err.message);
+//     } else{
+//         console.log("Below User Added to DB");
+//         console.log(user);
+//     }
+// });
 
 var subredditSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true }, 
@@ -55,37 +55,24 @@ var subredditSchema = new mongoose.Schema({
 var Subreddit = mongoose.model("subreddit", subredditSchema);
 
 
-Subreddit.create({
-    name: "gaming", 
-    description: "We like jokes!",
-    rules: "Make all jokes in good taste"
-}, function(err, subreddit){
-    if(err){
-        console.log("error at subreddit creation");
-    } else{
-        console.log("newly added subreddit is " + subreddit.name);
-    }
-});
-
-// User.find({}, function(err, user){
+// Subreddit.create({
+//     name: "gaming", 
+//     description: "We like jokes!",
+//     rules: "Make all jokes in good taste"
+// }, function(err, subreddit){
 //     if(err){
-//         console.log(err);
+//         console.log("error at subreddit creation");
 //     } else{
-//         console.log("----------------------------");
-//         console.log("-------All DB entries-------");
-//         console.log("----------------------------");
-//         console.log(user);
+//         console.log("newly added subreddit is " + subreddit.name);
 //     }
 // });
+
 
 // allow use of nondynamic resources by the app  
 app.use(express.static("public/css"));
 app.use(express.static("public/js"));
 app.use(express.static("public/partials"));
 app.use(express.static("public/img"));
-
-
-var subreddits = ["Funny"];
 
 app.get("/", function(req, res){
     Subreddit.find({}, function(err, subreddits){
@@ -94,33 +81,49 @@ app.get("/", function(req, res){
             console.log(err);
             res.render("Page404", {subreddits: subreddits});
         } else{
-            res.render("home", {subreddits: subreddits});
+            res.render("index", {subreddits: subreddits});
         }
     });
 });
 
+//subreddit index route 
 app.get("/subreddit", function(req, res){
     Subreddit.find({}, function(err, subreddits){
         if(err){
             console.log("Subreddit query error");
             console.log(err);
-            res.render("home", {subreddits: subreddits});
+            res.render("index", {subreddits: subreddits});
         } else{
             res.render("subreddit", {subreddits: subreddits});
         }
     });
 });
 
+// route to form to make new subreddit 
 app.get("/subreddit/new", function(req, res){
     res.render("newSubreddit");
-})
+});
 
+// Show an individual subreddit
+app.get("/subreddit/:id", function(req, res){
+    Subreddit.findById(req.params.id, function(err, foundSubreddit){
+        if(err){
+            console.log(err);
+        } else{
+            //render show template
+            res.render("subredditShow", {subreddit: foundSubreddit });
+            
+        }
+    });
+});
+
+// adds subreddit to database from form
 app.post("/subreddit", function(req, res){
     var name = req.body.name;
     var description = req.body.description;
     var rules = req.body.rules;
     var newSubreddit = {name: name, description: description, rules: rules};
-
+    
     Subreddit.create(newSubreddit, function(err, newEntry){
         if(err){
             console.log("subreddit creation error");
@@ -131,8 +134,9 @@ app.post("/subreddit", function(req, res){
             res.redirect("/subreddit");
         }
     });
-    
 });
+
+
 
 app.get("/users", function(req, res){
     User.find({}, function(err, allUsers){
@@ -156,8 +160,8 @@ app.get("/posts", function(req, res){
 
 app.get("/:pageName", function(req, res){ 
     var pageName = req.params.pageName;
+    console.log(pageName.name);
     res.render("page404", {pageVar: pageName});
-    console.log("Loading 404");
 });
 
 //show subreddits
