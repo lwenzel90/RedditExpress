@@ -5,14 +5,30 @@
     <h3>
         <%= subreddit.name %>
     </h3>
-    <h5>rules</h5>
-    <p>
-        <%= subreddit.rules %>
-    </p>
-    <h5>description</h5>
-    <p>
-        <%= subreddit.description %>
-    </p>
+    <div class="border d-inline-block mb-4 mr-4 col-5">
+        <h5>rules</h5>
+        <p>
+            <%= subreddit.rules %>
+        </p>    
+    </div>
+    
+    <div class="border d-inline-block mb-4 col-5">
+        <h5>description</h5>
+        <p>
+            <%= subreddit.description %>
+        </p>
+    </div>
+
+    <div class="border mb-4">
+        <h5>Posts</h5>
+        <% subreddit.posts.forEach(function(post){ %>
+            <p>
+                <%= post.title %> - <%= post.content %> 
+            </p>
+    
+        <% }) %>
+    </div>
+
 </div>
 
 <% include partials/footer %>

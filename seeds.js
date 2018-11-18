@@ -40,18 +40,18 @@ function seedDB(){
                         console.log("added a subreddit: " + seed.name);
                         //create a post
                         Post.create(
-                            {
-                                title: "Seeded post for seeded subreddit",
-                                content: "Created on creation of the DB"
-                            }, function(err, post){
-                                if(err){
-                                    console.log(err);
-                                } else{
-                                    subreddit.posts.push(post);
-                                    subreddit.save();
-                                    console.log("created new post in a seeded subreddit");
-                                }
-                            });
+                        {
+                            title: "POST EXAMPLE",
+                            content: "Created on creation of the DB! SEEDED DATA"
+                        }, function(err, post){
+                            if(err){
+                                console.log(err);
+                            } else{
+                                subreddit.posts.push(post);
+                                subreddit.save();
+                                console.log("created new post in a seeded subreddit");
+                            }
+                        });
                     }
                 });
             });

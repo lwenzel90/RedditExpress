@@ -38,53 +38,6 @@ newPost.save(function (err, post) {
 });
 
 
-
-// const newUser = new User({
-//     username: "lwenzel90", 
-//     password: "password123", 
-//     email: "example@gmail.com",
-//     isAdmin: true
-// });
-
-// newUser.posts.push(newPost);
-// newUser.save(function(err, user){
-//     if(err){ 
-//         console.log(err) 
-//     } else{
-//         console.log(user);
-//     }
-// });
-
-// User.create({
-//     username: "lwenzel90", 
-//     password: "password123", 
-//     email: "example@gmail.com",
-//     isAdmin: true
-// }, function(err, user){
-//     if(err){
-//         console.log("User entry error");
-//         console.log(err.message);
-//     } else{
-//         console.log("Below User Added to DB");
-//         console.log(user);
-//     }
-// });
-
-
-
-
-// Subreddit.create({
-//     name: "gaming", 
-//     description: "We like jokes!",
-//     rules: "Make all jokes in good taste"
-// }, function(err, subreddit){
-//     if(err){
-//         console.log("error at subreddit creation");
-//     } else{
-//         console.log("newly added subreddit is " + subreddit.name);
-//     }
-// });
-
 //-------------
 //Set up routes 
 //-------------
@@ -146,10 +99,11 @@ app.post("/subreddit", function (req, res) {
 
 // Show an individual subreddit
 app.get("/subreddit/:id", function (req, res) {
-    Subreddit.findById(req.params.id, function (err, foundSubreddit) {
+    Subreddit.findById(req.params.id).populate("posts").exec(function (err, foundSubreddit) {
         if (err) {
             console.log(err);
         } else {
+            console.log(`found subreddit ${foundSubreddit}`);
             //render show template
             res.render("subredditShow", { subreddit: foundSubreddit });
         }
@@ -185,7 +139,7 @@ app.get("/:pageName", function (req, res) {
 //show subreddits
 app.get("/r/:subreddit", (req, res) => {
     res.send("You are trying to connect to the " + req.params.subreddit + " the subreddit");
-});''
+});
 
 
 app.listen(3000, () => console.log("Listening on port 3000"));
