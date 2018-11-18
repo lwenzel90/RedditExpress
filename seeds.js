@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Subreddit = require("./models/subreddit");
 const Post = require("./models/post")
 
-let data = [
+var data = [
     {
         name: "Funny", 
         description: "We like to laugh here",

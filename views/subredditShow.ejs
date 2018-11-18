@@ -1,34 +1,44 @@
 <% include partials/header %>
-<div class="container">
-    <h1>This is the show template</h1>
+<div class="bg-light pb-5 clearfix">
+    <div class="container">
+        <div class="content d-block row">
+            <h1>
+                <%= subreddit.name %>
+            </h1>
+            <div class="col-12 col-md-4 float-md-right">
+                <div id="rules" class="container border mb-4 mt-md-6 bg-white p-2">
+                    <h5>Rules</h5>
+                    <p>
+                        <%= subreddit.rules %>
+                    </p>
 
-    <h3>
-        <%= subreddit.name %>
-    </h3>
-    <div class="border d-inline-block mb-4 mr-4 col-5">
-        <h5>rules</h5>
-        <p>
-            <%= subreddit.rules %>
-        </p>    
-    </div>
-    
-    <div class="border d-inline-block mb-4 col-5">
-        <h5>description</h5>
-        <p>
-            <%= subreddit.description %>
-        </p>
-    </div>
+                </div>
+                <div id="description" class="container border mb-4 mt-md-6 bg-white p-2">
+                    <h5>Description</h5>
+                    <p>
+                        <%= subreddit.description %>
+                    </p>
 
-    <div class="border mb-4">
-        <h5>Posts</h5>
-        <% subreddit.posts.forEach(function(post){ %>
-            <p>
-                <%= post.title %> - <%= post.content %> 
-            </p>
-    
-        <% }) %>
-    </div>
+                </div>
 
+            </div>
+            <div class="col-12 col-md-8">
+                    
+                    <% subreddit.posts.forEach(function(post){ %>
+                    <div class="border mb-4 bg-white post">
+                        <p>
+                            <%= post.title %> -
+                            <%= post.content %>
+                        </p>
+
+                    </div>
+            
+                    <% }) %>
+            </div>
+
+        </div>
+    </div>
 </div>
+
 
 <% include partials/footer %>
