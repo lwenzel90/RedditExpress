@@ -5,12 +5,15 @@
 // A db is setup using mongo and mongoose below
 const express = require("express"),
     app = express(),
-    logger = require('./logger.js'),
     mongoose = require("mongoose"),
-    bodyParser = require("body-parser");
-
+    bodyParser = require("body-parser"),
+    Post = require("./models/post"),
+    User = require("./models/user"),
+    Subreddit = require("./models/subreddit"),
+    seedDB = require("./seeds");
 
 mongoose.connect("mongodb://localhost:27017/reddit_clone", { useNewUrlParser: true });
+seedDB();
 app.set("view engine", "ejs");
 
 //body parser seperates out the url info from post requests
@@ -18,14 +21,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // -----------------------------
-// DB Schema and test insertions
+// Test DB functions
 // -----------------------------
-
-const postSchema = new mongoose.Schema({
-    title: String,
-    content: String
-});
-const Post = mongoose.model("Post", postSchema);
 
 const newPost = new Post({
     title: "First Post",
@@ -40,16 +37,7 @@ newPost.save(function (err, post) {
     }
 });
 
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    email: String,
-    isAdmin: Boolean,
-    posts: [postSchema]
-});
 
-// creates a object with methods to manipulate the db
-const User = mongoose.model("User", userSchema);
 
 // const newUser = new User({
 //     username: "lwenzel90", 
@@ -82,13 +70,7 @@ const User = mongoose.model("User", userSchema);
 //     }
 // });
 
-const subredditSchema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true },
-    description: { type: String, required: false, unique: false },
-    rules: { type: String, required: false, unique: false }
-});
 
-const Subreddit = mongoose.model("Subreddit", subredditSchema);
 
 
 // Subreddit.create({
@@ -140,7 +122,7 @@ app.get("/subreddit", function (req, res) {
 
 // route to form to make new subreddit 
 app.get("/subreddit/new", function (req, res) {
-    res.render("newSubreddit");
+    res.render("subredditForm");
 });
 
 // adds subreddit to database from form
@@ -201,14 +183,9 @@ app.get("/:pageName", function (req, res) {
 });
 
 //show subreddits
-app.get("/r/:subreddit", function (req, res) {
-    const subreddit = req.params.subreddit;
-    res.send("You are trying to connect to the '" + subreddit + "' the subreddit");
-});
+app.get("/r/:subreddit", (req, res) => {
+    res.send("You are trying to connect to the " + req.params.subreddit + " the subreddit");
+});''
 
-app.listen(3000, function () {
-    console.log("Listening on port 3000");
-});
 
-//custom written middleware
-//logger.log("hi");
+app.listen(3000, () => console.log("Listening on port 3000"));
