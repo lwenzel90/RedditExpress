@@ -55,27 +55,27 @@ app.get("/", function (req, res) {
             console.log(err);
             res.render("Page404", { subreddits: subreddits });
         } else {
-            res.render("index", { subreddits: subreddits });
+            res.render("landing", { subreddits: subreddits });
         }
     });
 });
 
-//subreddit index route 
+//subreddit show route 
 app.get("/subreddit", function (req, res) {
     Subreddit.find({}, function (err, subreddits) {
         if (err) {
             console.log("Subreddit query error");
             console.log(err);
-            res.render("index", { subreddits: subreddits });
+            res.render("landing", { subreddits: subreddits });
         } else {
-            res.render("subreddit", { subreddits: subreddits });
+            res.render("subreddits/show", { subreddits: subreddits });
         }
     });
 });
 
 // route to form to make new subreddit 
 app.get("/subreddit/new", function (req, res) {
-    res.render("subredditForm");
+    res.render("subreddits/new");
 });
 
 // adds subreddit to database from form
@@ -92,12 +92,20 @@ app.post("/subreddit", function (req, res) {
         } else {
             console.log("Below subreddit has been added to DB");
             console.log(newEntry.name);
-            res.redirect("/subreddit");
+            Subreddit.find({}, function (err, subreddits) {
+                if(err){
+                    console.log(err);
+                } else {
+                    res.render("subreddits/show", { subreddits: subreddits });
+                }
+                
+            });
+            
         }
     });
 });
 
-// Show an individual subreddit
+// subreddit index route (individual subreddit)
 app.get("/subreddit/:id", function (req, res) {
     Subreddit.findById(req.params.id).populate("posts").exec(function (err, foundSubreddit) {
         if (err) {
@@ -105,7 +113,7 @@ app.get("/subreddit/:id", function (req, res) {
         } else {
             console.log(`found subreddit ${foundSubreddit}`);
             //render show template
-            res.render("subredditShow", { subreddit: foundSubreddit });
+            res.render("subreddits/index", { subreddit: foundSubreddit });
         }
     });
 });
@@ -116,18 +124,9 @@ app.get("/users", function (req, res) {
             console.log("Users query error");
             console.log(err.message);
         } else {
-            res.render("users", { users: allUsers });
+            res.render("users/show", { users: allUsers });
         }
     })
-});
-
-app.get("/posts", function (req, res) {
-    const posts = [
-        { title: "First post on reddit", author: "Mike" },
-        { title: "Look at this meme", author: "Tyler" },
-        { title: "Classic Post!", author: "Rogger" }
-    ];
-    res.render("posts", { posts: posts });
 });
 
 app.get("/:pageName", function (req, res) {
@@ -135,11 +134,5 @@ app.get("/:pageName", function (req, res) {
     console.log(req.originalUrl);
     res.render("page404", { pageVar: pageName });
 });
-
-//show subreddits
-app.get("/r/:subreddit", (req, res) => {
-    res.send("You are trying to connect to the " + req.params.subreddit + " the subreddit");
-});
-
 
 app.listen(3000, () => console.log("Listening on port 3000"));
