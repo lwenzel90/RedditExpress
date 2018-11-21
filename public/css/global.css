@@ -2,6 +2,10 @@ html {
   font-size: 1rem;
 }
 
+.small-text{
+  font-size: .85rem;
+}
+
 @include media-breakpoint-up(sm) {
   html {
     font-size: 1.2rem;

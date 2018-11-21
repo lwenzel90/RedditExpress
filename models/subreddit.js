@@ -9,7 +9,8 @@ const subredditSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Post"
         }
-    ]
+    ],
+    
 });
 
 module.exports = mongoose.model("Subreddit", subredditSchema);

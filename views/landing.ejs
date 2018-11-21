@@ -53,35 +53,48 @@
         <div class="content d-block row ">
             <h1>ForumIt Home</h1>
             <div class="col-12 col-md-4 float-md-right">
-                <div id="signIn" class="container border mb-4 mt-md-6 bg-white p-2">
-                    <input type="text" placeholder="username" class="col-12 mb-1">
-                    <input type="password" placeholder="password" class="col-12 mb-2">
-                    <button class="btn btn-success btn-sm col-6 col-lg-4">Log In</button>
-                    <a href="/users/new"></a>
-                    <button class="btn btn-primary btn-sm col-6 col-lg-4 float-right">Register</button>
+                <div id="signIn" class="container border mb-4 mt-md-6 bg-white p-2 clearfix">
+                    <form action="/login" method="POST">
+                        <input type="text" placeholder="username" class="col-12 mb-1">
+                        <input type="password" placeholder="password" class="col-12 mb-2">
+                        <!-- all this is needed to center the button -->
+                        <div class="container mb-2">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-success btn-sm col-6 col-lg-4">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="small-text text-center">No Account? Sign up <a href="/user/register">Here</a></p>
+
+                    </form>
+                    <!-- all this is needed to center the button -->
+                    
+
+                </div>
+
+                <div id="quickLinks" class="container border mb-4  bg-white p-2 sticky-top ">
+                    <h4>Quick Links</h4>
+                    <a href="/subreddit" target="_blank" class="text-white"><button class="btn btn-primary">Subreddits</button></a>
+                    <a href="/user" target="_blank" class="text-white"><button class="btn btn-primary">Users</button></a>
+
 
                 </div>
 
                 <div id="devCard" class="container border mb-4  bg-white p-2 sticky-top ">
                     <h4>Learn About the Developer</h4>
-                    <a href="http://www.loganwenzel.com" target="_blank" class="text-white"><button class="btn btn-primary">Learn Here!</button></a>
-                    
-                </div>
-
-                <div id="devCard" class="container border mb-4  bg-white p-2 sticky-top ">
-                    <h4>Quick Links</h4>
-                    <a href="/subreddit" target="_blank" class="text-white"><button class="btn btn-primary">Subreddits</button></a>
-                    <a href="/users" target="_blank" class="text-white"><button class="btn btn-primary">Users</button></a>
-                    
+                    <a href="http://www.loganwenzel.com" target="_blank" class="text-white"><button class="btn btn-primary">Learn
+                            Here!</button></a>
 
                 </div>
+
             </div>
 
 
             <div class="col-12 col-md-8 ">
                 <!-- first posts the later ones will be served programmatically  -->
-                
-                
+
+
                 <div class="border mb-4 bg-white post">
                     <p>subreddit placeholder <a href="#">username placeholder</a></p>
                     <h5>Post title - this can be as long as it wants to be</h5>

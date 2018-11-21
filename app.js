@@ -10,43 +10,44 @@ const express = require("express"),
     Post = require("./models/post"),
     User = require("./models/user"),
     Subreddit = require("./models/subreddit"),
-    seedDB = require("./seeds");
+    seedDB = require("./seeds"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    passportLocalMongoose = require("passport-local-mongoose");
+
 
 mongoose.connect("mongodb://localhost:27017/reddit_clone", { useNewUrlParser: true });
 seedDB();
+
 app.set("view engine", "ejs");
 
 //body parser seperates out the url info from post requests
 //middleware to use later in app
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// -----------------------------
-// Test DB functions
-// -----------------------------
+app.use(require("express-session")({
+    secret: "Oh boy I have gotten ligma",
+    resave: false,
+    saveUninitialized: false
+}));
 
-const newPost = new Post({
-    title: "First Post",
-    content: "Hey world this is a reddit post"
-});
+app.use(passport.initialize());
+app.use(passport.session());
 
-newPost.save(function (err, post) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(post);
-    }
-});
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-
-//-------------
-//Set up routes 
-//-------------
 
 // allow use of nondynamic resources by the app  
 app.use(express.static("public/css"));
 app.use(express.static("public/js"));
 app.use(express.static("public/partials"));
 app.use(express.static("public/img"));
+
+//-------------
+//Set up routes 
+//-------------
 
 app.get("/", function (req, res) {
     Subreddit.find({}, function (err, subreddits) {
@@ -58,6 +59,33 @@ app.get("/", function (req, res) {
             res.render("landing", { subreddits: subreddits });
         }
     });
+});
+
+//user sign up form 
+app.get("/user/register", function(req, res){
+    res.render("users/register");
+});
+
+//handle form submit of new user
+app.post("/register", function(req, res){
+    //hashes password
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render("users/register");
+        }
+        //log user in and store info 
+        passport.authenticate("local")(req, res, function(){
+            res.send("you have been authenticated and logged in");
+        });
+    });
+});
+
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/success", 
+    failureRedirect: "/failed"
+}) ,function(req,res){
+
 });
 
 //subreddit show route 
@@ -118,7 +146,7 @@ app.get("/subreddit/:id", function (req, res) {
     });
 });
 
-app.get("/users", function (req, res) {
+app.get("/user", function (req, res) {
     User.find({}, function (err, allUsers) {
         if (err) {
             console.log("Users query error");
@@ -129,10 +157,10 @@ app.get("/users", function (req, res) {
     })
 });
 
-app.get("/:pageName", function (req, res) {
-    const pageName = req.params.pageName;
-    console.log(req.originalUrl);
-    res.render("page404", { pageVar: pageName });
-});
+// app.get("/:pageName", function (req, res) {
+//     const pageName = req.params.pageName;
+//     console.log(req.originalUrl);
+//     res.render("page404", { pageVar: pageName });
+// });
 
 app.listen(3000, () => console.log("Listening on port 3000"));

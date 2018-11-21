@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Subreddit = require("./models/subreddit");
-const Post = require("./models/post")
+const Post = require("./models/post");
 
 var data = [
     {
@@ -26,18 +26,18 @@ function seedDB(){
         if(err){
             console.log(err);
         }
-        console.log("removed subreddits");
+        //console.log("removed subreddits");
         Post.remove({}, function(err){
             if(err){
                 console.log(err);
             }
-            console.log("removed posts");
+            //console.log("removed posts");
             data.forEach(function(seed){
                 Subreddit.create(seed, function(err, subreddit){
                     if(err){
                         console.log(err);
                     } else {
-                        console.log("added a subreddit: " + seed.name);
+                        //console.log("added a subreddit: " + seed.name);
                         //create a post
                         Post.create(
                         {
@@ -49,7 +49,7 @@ function seedDB(){
                             } else{
                                 subreddit.posts.push(post);
                                 subreddit.save();
-                                console.log("created new post in a seeded subreddit");
+                                //console.log("created new post in a seeded subreddit");
                             }
                         });
                     }
@@ -57,7 +57,7 @@ function seedDB(){
             });
         });
     });
-    
+    console.log("DB Seeding complete");
 }
 
 module.exports = seedDB;
