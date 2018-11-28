@@ -56,7 +56,15 @@ app.get("/", function (req, res) {
             console.log(err);
             res.render("Page404", { subreddits: subreddits });
         } else {
-            res.render("landing", { subreddits: subreddits });
+            let data = {
+                user: req.user,
+                subreddits: subreddits
+            }
+            if(req.user){
+                res.render("landing", { data: data });
+            } else {
+                res.render("landing", {})
+            }
         }
     });
 });
@@ -78,6 +86,7 @@ app.post("/posts", isLoggedIn, function(req, res){
         const title = req.body.title;
         const content = req.body.content;
         const user = req.user.username;
+        const subreddit = req.body.subreddit;
         // NEED TO DO 
         // find the subreddit that the form returns then add the post to the subreddit 
         // add post to the subreddit and add the subreddit to the post
