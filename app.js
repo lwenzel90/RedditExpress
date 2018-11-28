@@ -232,4 +232,4 @@ app.get("/user", function (req, res) {
 //     res.render("page404", { pageVar: pageName });
 // });
 
-app.listen(3000, () => console.log("Listening on port 3000"));
+app.listen(80, () => console.log("Listening on port default port(80)"));
