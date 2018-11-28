@@ -1,13 +1,13 @@
 <% include ../partials/header %>
-<div class="container border mt-4 pb-4 bg-info">
-    <h1>Create a new subreddit</h1>
+<div class="container border mt-4 pb-4 ">
+    <h1 class="text-center">Create a new subreddit</h1>
+    <hr>
+    <form action="/subreddit" method="POST" class="form-inline justify-content-center form-group">
+        <input type="text" placeholder="URL End" name="name" class="form-control rounded mr-2 ">
+        <input type="text" placeholder="description" name="description" class="form-control rounded mr-2 ">
+        <input type="text" placeholder="rules" name="rules" class="form-control rounded mr-2 ">
 
-    <form action="/subreddit" method="POST">
-        <input type="text" placeholder="URL End" name="name">
-        <input type="text" placeholder="description" name="description">
-        <input type="text" placeholder="rules" name="rules">
-
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="btn btn-success  border">
     </form>
 
 </div>
