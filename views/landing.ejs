@@ -43,11 +43,12 @@
     </a>
     <span class="nav-group-end d-md-inline-block d-none"></span>
 
+    <% if(typeof data.user != "undefined" ){ %>
     <a href="/posts/new" class="ml-1 col-xs-3 col-md-2 mb-2 mb-md-0 text-center">
 
         <button type="button" class="btn btn-primary col-12" title="compose">Compose</button>
     </a>
-    <% if(typeof data.user != "undefined" ){ %>
+    
     <button class="btn btn-info">
         <%=data.user.username%>
     </button>
