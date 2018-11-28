@@ -109,7 +109,7 @@ app.post("/register", function (req, res) {
         }
         //log user in and store info 
         passport.authenticate("local")(req, res, function () {
-            res.send("you have been authenticated and logged in");
+            res.redirect("/");
         });
     });
 });

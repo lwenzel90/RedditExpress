@@ -58,7 +58,9 @@
         <div class="container">
             <div class="content d-block row ">
             <h1>All subreddits</h1>
-        
+            <a href="/subreddit/new">
+                <button class="btn btn-success">Create Subreddit</button>
+            </a>
             <div class="post">
                 <% data.subreddits.forEach(function(subreddit){ %>
                 <a href="/subreddit/<%= subreddit._id %>"" class=" dropdown-item">
