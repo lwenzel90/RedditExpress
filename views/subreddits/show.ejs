@@ -54,16 +54,21 @@
     </button>
     <% } %>
 </div>
+<div class="bg-light pb-5 clearfix">
+        <div class="container">
+            <div class="content d-block row ">
+            <h1>All subreddits</h1>
+        
+            <div class="post">
+                <% data.subreddits.forEach(function(subreddit){ %>
+                <a href="/subreddit/<%= subreddit._id %>"" class=" dropdown-item">
+                    <%= subreddit.name %></a>
+                <% }); %>
+            </div>
 
-<div class="container">
-    <h1>All subreddits</h1>
-
-    <div class="post">
-        <% data.subreddits.forEach(function(subreddit){ %>
-        <a href="/subreddit/<%= subreddit._id %>"" class=" dropdown-item">
-            <%= subreddit.name %></a>
-        <% }); %>
+        </div>
     </div>
+
 </div>
 
 <% include ../partials/footer %>
