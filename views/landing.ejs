@@ -43,8 +43,10 @@
     </a>
     <span class="nav-group-end d-md-inline-block d-none"></span>
 
-
-    <button type="button" class="btn btn-primary ml-1 col-xs-3 col-md-2 mb-2 mb-md-0" title="compose">Compose</button>
+    <a href="/posts/new" class="ml-1 col-xs-3 col-md-2 mb-2 mb-md-0 text-center">
+    
+        <button type="button" class="btn btn-primary col-12" title="compose">Compose</button>
+    </a>
 </div>
 
 <!-- content begins here  -->
@@ -52,6 +54,7 @@
     <div class="container">
         <div class="content d-block row ">
             <h1>ForumIt Home</h1>
+            
             <div class="col-12 col-md-4 float-md-right">
                 <div id="signIn" class="container border mb-4 mt-md-6 bg-white p-2 clearfix">
                     <form action="/login" method="POST">
@@ -66,7 +69,7 @@
                             </div>
                         </div>
                         <p class="small-text text-center">No Account? Sign up <a href="/user/register">Here</a></p>
-
+                        <p class="small-text text-center"><a href="/logout">Logout</a></p>
                     </form>
                     <!-- all this is needed to center the button -->
                     

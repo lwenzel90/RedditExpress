@@ -7,7 +7,7 @@ const express = require("express"),
     app = express(),
     mongoose = require("mongoose"),
     bodyParser = require("body-parser"),
-    Post = require("./models/post"),
+    Posts = require("./models/post"),
     User = require("./models/user"),
     Subreddit = require("./models/subreddit"),
     seedDB = require("./seeds"),
@@ -61,6 +61,33 @@ app.get("/", function (req, res) {
     });
 });
 
+app.get("/posts/new", isLoggedIn, function(req, res){
+    Subreddit.find({}, function (err, subreddits) {
+        if (err) {
+            console.log("Home page Subreddit query error");
+            console.log(err);
+            res.render("Page404");
+        } else {
+            res.render("posts/new", { subreddits: subreddits });
+        }
+    });
+});
+
+app.post("/posts", isLoggedIn, function(req, res){
+    if(req.user){
+        const title = req.body.title;
+        const content = req.body.content;
+        const user = req.user.username;
+        // NEED TO DO 
+        // find the subreddit that the form returns then add the post to the subreddit 
+        // add post to the subreddit and add the subreddit to the post
+        const newPost = { title: title, content: content, user: user, subreddit: subreddit};
+    
+    } else{
+        res.send("This is not working");
+    }
+});
+
 //user sign up form 
 app.get("/user/register", function(req, res){
     res.render("users/register");
@@ -82,11 +109,23 @@ app.post("/register", function(req, res){
 });
 
 app.post("/login", passport.authenticate("local", {
-    successRedirect: "/success", 
-    failureRedirect: "/failed"
+    successRedirect: "/", 
+    failureRedirect: "/failedLogin"
 }) ,function(req,res){
 
 });
+
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+});
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/");
+}
 
 //subreddit show route 
 app.get("/subreddit", function (req, res) {
