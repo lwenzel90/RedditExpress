@@ -6,16 +6,14 @@
         <label for="title">Title</label>
         <input type="text" placeholder="Title" name="title" class="col-12">
         <label for="subreddit">Subreddit</label>
-        <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" >
-            Dropdown button
-        </button>
-        <div class="dropdown-menu col-7 container text-center" aria-labelledby="dropdownMenuButton">
+
+        <select name="subreddit" placeholder="Subreddits" class="custom-select">
             <% subreddits.forEach(function(subreddit){ %>
-            <li class="dropdown-item" name="subreddit">
-                <%= subreddit.name %></li>
+            <option value="<%=subreddit.name %>">
+                <%=subreddit.name %>
+            </option>
             <% }); %>
-        </div>
+        </select>
         <label for="content">Content</label>
         <textarea name="content" id="postContent" cols="30" rows="10" class="col-12"></textarea>
         <button class="btn btn-success">Submit</button>

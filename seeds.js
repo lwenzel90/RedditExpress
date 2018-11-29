@@ -1,20 +1,21 @@
 const mongoose = require("mongoose");
 const Subreddit = require("./models/subreddit");
 const Post = require("./models/post");
+const User = require("./models/user");
 
 var data = [
     {
-        name: "Funny", 
+        name: "funny", 
         description: "We like to laugh here",
         rules: "Please spread positivity"
     },
     {
-        name: "Picture", 
+        name: "pictures", 
         description: "Where the beauty of the world is captured",
         rules: "Be nice and aesthetic "
     },
     {
-        name: "Jobs", 
+        name: "jobs", 
         description: "Working together to get you hired!",
         rules: "Please be professional and courteous  "
     }
@@ -22,6 +23,11 @@ var data = [
 
 function seedDB(){
     //Remove all subreddits
+    User.remove({}, function(err){
+        if(err){
+            console.log(err);
+        }
+    });
     Subreddit.remove({}, function(err){
         if(err){
             console.log(err);

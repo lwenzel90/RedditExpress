@@ -18,7 +18,7 @@ const express = require("express"),
 
 
 mongoose.connect("mongodb://localhost:27017/reddit_clone", { useNewUrlParser: true });
-//seedDB();
+seedDB();
 
 app.set("view engine", "ejs");
 
@@ -45,7 +45,11 @@ app.use(express.static("public/css"));
 app.use(express.static("public/js"));
 app.use(express.static("public/partials"));
 app.use(express.static(__dirname + "/public/img"));
-console.log(__dirname);
+
+// app.use(function(req, res, next){
+//     res.locals.currentUser = req.user;
+// });
+
 //-------------
 //Set up routes 
 //-------------
@@ -80,14 +84,34 @@ app.get("/posts/new", isLoggedIn, function (req, res) {
 
 app.post("/posts", isLoggedIn, function (req, res) {
     if (req.user) {
-        const title = req.body.title;
-        const content = req.body.content;
-        const user = req.user.username;
-        const subreddit = req.body.subreddit;
-        // NEED TO DO 
-        // find the subreddit that the form returns then add the post to the subreddit 
-        // add post to the subreddit and add the subreddit to the post
-        const newPost = { title: title, content: content, user: user, subreddit: subreddit };
+        let title = req.body.title;
+        let content = req.body.content;
+        Subreddit.findOne({name: req.body.subreddit}, function(err, subreddit){
+            if(err){
+                console.log("Couldn't find the subreddit you are trying to post to");
+            } else{
+                User.findOne({name: req.user.username}, function(err, user){
+                    if(err){
+                        console.log("Couldn't query user");
+                    } else{
+                        let newPost = {
+                            title: req.body.title,
+                            content: req.body.content,
+                            user: user
+                        }
+                        Posts.create(newPost, function(err, post){
+                            if(err){
+                                console.log("error creating post");
+                            } else{
+                                subreddit.posts.push(post);
+                                subreddit.save();
+                                res.redirect("subreddit/" + subreddit._id);
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
     } else {
         res.send("This is not working");
@@ -159,7 +183,7 @@ app.get("/subreddit/new", function (req, res) {
 
 // adds subreddit to database from form
 app.post("/subreddit", function (req, res) {
-    const name = req.body.name;
+    const name = req.body.name.toLowerCase();
     const description = req.body.description;
     const rules = req.body.rules;
     const newSubreddit = { name: name, description: description, rules: rules };
@@ -172,10 +196,14 @@ app.post("/subreddit", function (req, res) {
             console.log("Below subreddit has been added to DB");
             console.log(newEntry.name);
             Subreddit.find({}, function (err, subreddits) {
+                let data = {
+                    user: req.user,
+                    subreddits: subreddits
+                }
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render("subreddits/show", { subreddits: subreddits });
+                    res.render("subreddits/show", { data: data });
                 }
 
             });

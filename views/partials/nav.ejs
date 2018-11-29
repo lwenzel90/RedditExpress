@@ -1,0 +1,53 @@
+<div class="navbar navbar-expand-md bg-light border-bottom affix fixed-top " style="padding: .1rem 1rem;">
+
+        <span class="navbar-brand h1  d-md-block">ForumIt</span>
+    
+    
+        <div class="dropdown show col-sm-12 col-md-2 ">
+            <button class="btn dropdown-toggle col-12 mb-2 mb-md-0" type="button" data-toggle="dropdown" data-boundary="200px"
+                aria-haspopup="true" aria-expanded="false">
+                Home
+            </button>
+            <div class="dropdown-menu scrollable-menu">
+                <p class="bg-light m-0 p-2 border-bottom border-top">Feed Type</p>
+                <a href="/" class="dropdown-item"><img src="check.svg" alt="" class="dropdown-icon mr-1">Home</a>
+                <a href="/subreddit/popular" class="dropdown-item"><img src="graph.svg" alt="" class="dropdown-icon mr-1">Popular</a>
+                <a href="/subreddit/all" class="dropdown-item"><img src="bar-chart.svg" alt="" class="dropdown-icon">All</a>
+
+                <p class="bg-light m-0 p-2 border-bottom border-top">Your Subreddits</p>
+                <% subreddits.forEach(function(subreddit){ %>
+                <a href="/subreddit/<%= subreddit._id %>" class="dropdown-item">
+                    <%= subreddit.name %></a>
+                <% }); %>
+            </div>
+        </div>
+    
+        <input class="form-control flex mb-sm-2 mb-2 mb-md-0" type="text" placeholder="Search" aria-label="Search">
+        <a href="/">
+            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Home">
+                <img src="check.svg" class="nav-icon ">
+            </span>
+        </a>
+        <a href="/subreddit/popular">
+            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="Popular">
+                <img src="graph.svg" class="nav-icon">
+            </span>
+        </a>
+        <a href="/subreddit/all">
+            <span class="nav-icon-box d-md-inline-block d-none" data-toggle="tooltip" title="All">
+                <img src="bar-chart.svg" class="nav-icon">
+            </span>
+        </a>
+        <span class="nav-group-end d-md-inline-block d-none"></span>
+    
+        <% if(typeof currentUser.user != "undefined" ){ %>
+        <a href="/posts/new" class="ml-1 col-xs-3 col-md-2 mb-2 mb-md-0 text-center">
+    
+            <button type="button" class="btn btn-primary col-12" title="compose">Compose</button>
+        </a>
+        
+        <button class="btn btn-info">
+            <%=currentUser.username%>
+        </button>
+        <% } %>
+    </div>
