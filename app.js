@@ -18,7 +18,7 @@ const express = require("express"),
 
 
 mongoose.connect("mongodb://localhost:27017/reddit_clone", { useNewUrlParser: true });
-seedDB();
+// seedDB();
 
 app.set("view engine", "ejs");
 
