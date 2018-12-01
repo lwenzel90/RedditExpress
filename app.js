@@ -46,6 +46,7 @@ app.use(express.static("public/js"));
 app.use(express.static("public/partials"));
 app.use(express.static(__dirname + "/public/img"));
 
+// This will get passed to every views page. Was used for nav 
 // app.use(function(req, res, next){
 //     res.locals.currentUser = req.user;
 // });
@@ -80,8 +81,6 @@ app.get("/", function (req, res) {
 
 app.post("/posts", isLoggedIn, function (req, res) {
     if (req.user) {
-        let title = req.body.title;
-        let content = req.body.content;
         Subreddit.findOne({ name: req.body.subreddit }, function (err, subreddit) {
             if (err) {
                 console.log("Couldn't find the subreddit you are trying to post to");
@@ -121,6 +120,10 @@ app.get("/posts/new", isLoggedIn, function (req, res) {
             console.log(err);
             res.render("Page404");
         } else {
+            data = {
+                user: req.user,
+                subreddits: subreddits
+            }
             res.render("posts/new", { subreddits: subreddits });
         }
     });
@@ -136,14 +139,39 @@ app.get("/user", function (req, res) {
             console.log("Users query error");
             console.log(err.message);
         } else {
-            res.render("users/show", { users: allUsers });
+            Subreddit.find({}, function(err, subreddits){
+                if(err){
+                    console.log(err);
+                    res.render("page404");
+                } else{
+                    let data = {
+                        users: allUsers,
+                        subreddits: subreddits, 
+                        user: req.user
+                    }
+                    res.render("users/show", {data: data});
+                }
+            });
+            
         }
-    })
+    });
 });
 
 //user sign up form 
 app.get("/user/register", function (req, res) {
-    res.render("users/register");
+    Subreddit.find({}, function (err, subreddits){
+        if(err){
+            console.log(err);
+            res.render("page404");
+        } else {
+            data = {
+                user: req.user,
+                subreddits: subreddits
+            }
+            res.render("users/register", {data: data});
+        }
+    })
+    
 });
 
 //handle form submit of new user

@@ -13,10 +13,6 @@
     display: block !important;
 }
 
-.content{
-    transform:translateY(60px);
-}
-
 .row{
     width: 100%;
 }
